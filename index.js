@@ -6,19 +6,57 @@ app.get('/', (req, res) => {
   res.send(`Te encuentras en el servidor de Fabián.`);
 });
 
-app.get('/nueva-ruta', (req, res) => {
+app.get('/categories', (req, res) => {
+  res.json([
+    {
+      toys: 'ball',
+      clothes: 'shirt',
+    },
+  ]);
+});
+
+app.get('/users/:userId', (req, res) => {
+  const { userId } = req.params;
+
   res.json({
-    intro: 'soy una nueva ruta en formato json',
-    name: 'nueva-ruta',
+    userId,
   });
 });
 
-app.get('/productos', (req, res) => {
+app.get('/products', (req, res) => {
+  res.json([
+    {
+      name: 'producto 1',
+      price: 1000,
+    },
+    {
+      name: 'producto 2',
+      price: 2300,
+    },
+  ]);
+});
+
+app.get('/products/:productId', (req, res) => {
+  const { productId } = req.params;
+
   res.json({
-    name: 'producto 1',
-    price: 1250,
+    productId,
+    name: 'producto 2',
+    price: 2300,
   });
 });
+
+app.get(
+  '/categories/:categoryId/products/:productId/:users/:userId',
+  (req, res) => {
+    const { categoryId, productId, userId } = req.params;
+    res.json({
+      categoryId,
+      productId,
+      userId,
+    });
+  }
+);
 
 app.listen(port, () => {
   console.log(`Mi puerto ${port}`);
