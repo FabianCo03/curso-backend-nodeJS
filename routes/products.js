@@ -23,18 +23,24 @@ router.get('/filter', (req, res) => {
   res.send('yo soy un filter');
 });
 
-router.get('/:productId', (req, res) => {
-  const { productId } = req.params;
-  res.json({
-    productId,
-    name: 'producto 2',
-    price: 2300,
-  });
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  if (id === '999') {
+    res.status(404).json({
+      message: 'Not found',
+    });
+  } else {
+    res.status(200).json({
+      id,
+      name: 'producto 2',
+      price: 2300,
+    });
+  }
 });
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.json({
+  res.status(201).json({
     message: 'created',
     data: body,
   });
