@@ -9,7 +9,6 @@ class ProductsService {
 
   generate() {
     const limit = 100;
-
     for (let index = 0; index < limit; index++) {
       this.products.push({
         id: faker.datatype.uuid(),
@@ -31,14 +30,10 @@ class ProductsService {
   }
 
   find() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.products);
-      }, 5000);
-    });
+    return this.products;
   }
 
-  async findOnlyOne(id) {
+  async findOne(id) {
     const product = this.products.find((item) => item.id === id);
     if (!product) {
       throw boom.notFound('product not found');
@@ -71,4 +66,5 @@ class ProductsService {
     return { id };
   }
 }
+
 module.exports = ProductsService;
