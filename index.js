@@ -7,6 +7,7 @@ const {
   logErrors,
   errorHandler,
   boomErrorHandler,
+  queryErrorHandler,
 } = require('./middlewares/error.handler');
 
 app.use(express.json());
@@ -20,7 +21,9 @@ app.get('/nueva-ruta', (req, res) => {
 
 routerApi(app);
 
+// se ejecutan en este ORDEN
 app.use(logErrors);
+app.use(queryErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
