@@ -11,6 +11,9 @@ class CategoryService {
     return data;
   }
 
+  // relaciones: una categoría puede tener MUCHOS productos, pero un producto puede permanecer a una categoria
+  // cuando utilizamos hasMany la relacion va a quedar en productos
+
   async find() {
     const query = 'SELECT * FROM tasks';
     const rta = await this.pool.query(query);
