@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-
+const { models } = require('./../libs/sequelize')
 const pool = require('../libs/postgresPool');
 
 class CategoryService {
@@ -8,20 +8,23 @@ class CategoryService {
     this.pool.on('error', (err) => console.error(err));
   }
   async create(data) {
-    return data;
+    const newCategory = await models.Category.create(data)
+    return newCategory
   }
 
-  // relaciones: una categoría puede tener MUCHOS productos, pero un producto puede permanecer a una categoria
-  // cuando utilizamos hasMany la relacion va a quedar en productos
-
   async find() {
-    const query = 'SELECT * FROM tasks';
-    const rta = await this.pool.query(query);
-    return rta.rows;
+    const categories = await models.Category.findAll()
+    return categories;
   }
 
   async findOne(id) {
-    return { id };
+    const category = await models.Category.findByPk(id, {
+      include: ['products']
+    })
+    if (!category) {
+      throw boom.notFound('category not found');
+    }
+    return category;
   }
 
   async update(id, changes) {

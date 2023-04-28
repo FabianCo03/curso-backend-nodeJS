@@ -1,5 +1,4 @@
 const express = require('express');
-
 const CategoryService = require('./../services/categoryService');
 const validatorHandler = require('./../middlewares/validator.handler');
 const {
