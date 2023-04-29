@@ -2,10 +2,9 @@
 
 const { DataTypes } = require('sequelize');
 
-const { CustomerSchema, CUSTOMER_TABLE } = require('./../models/customerModel')
+const { CUSTOMER_TABLE } = require('./../models/customerModel');
 
 module.exports = {
-
   up: async (queryInterface) => {
     await queryInterface.changeColumn(CUSTOMER_TABLE, 'user_id', {
       field: 'user_id',
@@ -14,8 +13,4 @@ module.exports = {
       unique: true,
     });
   },
-
-  down: async (queryInterface) => {
-    // await queryInterface.dropTable(CUSTOMER_TABLE);
-  }
-}
+};

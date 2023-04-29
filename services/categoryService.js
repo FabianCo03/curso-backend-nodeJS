@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const { models } = require('./../libs/sequelize')
+const { models } = require('./../libs/sequelize');
 const pool = require('../libs/postgresPool');
 
 class CategoryService {
@@ -8,19 +8,19 @@ class CategoryService {
     this.pool.on('error', (err) => console.error(err));
   }
   async create(data) {
-    const newCategory = await models.Category.create(data)
-    return newCategory
+    const newCategory = await models.Category.create(data);
+    return newCategory;
   }
 
   async find() {
-    const categories = await models.Category.findAll()
+    const categories = await models.Category.findAll();
     return categories;
   }
 
   async findOne(id) {
     const category = await models.Category.findByPk(id, {
-      include: ['products']
-    })
+      include: ['products'],
+    });
     if (!category) {
       throw boom.notFound('category not found');
     }
